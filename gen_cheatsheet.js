@@ -126,6 +126,7 @@ const p1_left = [
   b("Hook stdout enters Claude context — pull live state Claude can't read itself"),
   b("Use for: spend tracking, infra health, memory index, mode flags"),
   b("Hooks run shell commands — full access to your environment"),
+  b("Enterprise: Inference hooks intercept prompts before inference — org-level allow/deny"),
   h("3 · Skills — Reusable Workflows"),
   code([
     "/skill-name -> loads SKILL.md -> Claude follows exactly",
@@ -136,6 +137,7 @@ const p1_left = [
   b("1% chance it applies -> invoke it. No rationalizing."),
   b("Rigid skills (TDD, debugging): follow exactly. Flexible: adapt."),
   b("Chain: brainstorming skill -> then domain implementation skill"),
+  b("Plugins in .claude/skills auto-load — discoverable without explicit /invoke"),
   h("4 · Non-Interactive Mode"),
   code([
     "# Single-shot, exits after response",
@@ -144,9 +146,12 @@ const p1_left = [
     "claude --output-format json --print 'prompt'",
     "# Pipe into downstream scripts",
     "echo 'summarize' | claude --print | downstream_tool",
+    "# Restricted: strips Bash/code tools (safe for untrusted input)",
+    "claude --restricted --print 'analyze' < untrusted.txt",
   ]),
   b("--print exits after one response — no REPL loop"),
   b("Use for CI pipelines, scheduled tasks, shell automation"),
+  b("--restricted strips Bash + code execution tools — compliance / untrusted-input pipelines"),
 ];
 
 const p1_right = [
@@ -209,6 +214,7 @@ const p2_left = [
     "// Opus supervises -> Sonnet workers in isolated contexts",
   ]),
   b("Works when: tasks are independent, each >10 min, clearly scoped"),
+  b("CLAUDE_CODE_SUBAGENT_EFFORT env: set default effort for all subagents (low/medium/high)"),
   b("Workers output OLD/NEW patch files — Opus applies sequentially"),
   h("10 · Parallel Agents — When It Hurts"),
   b("N workers x full context = N times token burn — size matters"),
@@ -235,7 +241,7 @@ const p2_right = [
   b("Classify tier BEFORE dispatching — not after work is scoped"),
   b("Sonnet 5.5 (default): 1M ctx, $2/$10/M in/out, $0.20/M cached reads"),
   b("T5 orchestrator via subscription ONLY: Agent(model='opus')"),
-  b("Never call provider API directly for orchestration-tier work"),
+  b("Deprecations Nov 30: Opus 4.8 Fast removed; Sonnet 4.5 API retires — migrate to 5.5"),
   h("13 · MCP + New API Tools"),
   code([
     "// Claude Code MCP (.claude/settings.json)",
@@ -250,6 +256,7 @@ const p2_right = [
   b("Code Execution: Claude runs Python, iterates inline with your tools"),
   b("Files API (GA Aug 2026): 500 MB/file, 1 TB org — ref across requests"),
   b("Inline tools beta: define tools in mid-convo system msg (inline-tools-2026-09-15)"),
+  b("Models API reports capabilities per-model: web_search, code_execution, thinking_toggle"),
   h("14 · Memory System + Failure Modes"),
   code([
     "MEMORY.md  (index, loaded every session)",
@@ -282,6 +289,7 @@ const p2_right = [
     "Independent subtasks?  -> parallel agents (1 message)",
     "Each task < 10 min?    -> DON'T parallelize (overhead wins)",
     "Needs orchestrator?    -> Agent(model='opus'), sub only",
+    "Untrusted input pipe?  -> --restricted flag (strips Bash/code tools)",
     "Session ending?        -> JOURNAL_<project>.md always",
   ]),
 ];

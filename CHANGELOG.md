@@ -1,3 +1,27 @@
+## [2026-11] Monthly Update
+
+New features found:
+- Claude Code v2.1.316: CLAUDE_CODE_SUBAGENT_EFFORT env var (sets default subagent effort level); CLAUDE_CODE_DISABLE_ULTRATHINK env var
+- Opus 4.8 Fast mode removed November 30; migrate to Opus 5.5
+- Opus 5.5 Fast mode now GA (including Google Cloud)
+- Claude Sonnet 4.5 API retirement November 30; migrate to Sonnet 5.5
+- --restricted CLI flag (strips Bash/code tools for untrusted-input / compliance pipelines)
+- Inference hooks (Enterprise beta): org-level allow/deny before inference
+- Plugins in .claude/skills directories auto-load — no explicit /invoke needed
+- Models API now reports per-model capabilities: web_search, code_execution, thinking_toggle
+- Idle compaction in VS Code and Claude Desktop (long idle conversations auto-summarized)
+
+Sections updated:
+- §2 Hooks: added Enterprise Inference hooks bullet
+- §3 Skills: added auto-loading plugins bullet
+- §4 Non-Interactive Mode: added --restricted flag example and bullet
+- §9 Parallel Agents: added CLAUDE_CODE_SUBAGENT_EFFORT env var bullet
+- §12 Model Routing: replaced outdated "never call API directly" note with deprecation timeline (Opus 4.8 Fast + Sonnet 4.5 API both retire Nov 30)
+- §13 MCP + New API Tools: added Models API per-model capabilities bullet
+- §16 Daily Decision Tree: added --restricted flag branch
+
+Sections removed: none
+
 ## [2026-10] Monthly Update
 
 New features found:
